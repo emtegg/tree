@@ -1,4 +1,3 @@
-import os
 import json
 
 import torch
@@ -29,7 +28,6 @@ def main():
 
     # load image
 
-    assert os.path.exists(img_path), "file: '{}' dose not exist.".format(img_path)
     img = Image.open(img_path)
     # [N, C, H, W]
     img = data_transform(img)
@@ -38,8 +36,6 @@ def main():
 
     # read class_indict
     json_path = './class_indices.json'
-    assert os.path.exists(json_path), "file: '{}' dose not exist.".format(json_path)
-
     with open(json_path, "r") as f:
         class_indict = json.load(f)
 
