@@ -1,5 +1,3 @@
-import json
-
 import torch
 from PIL import Image
 import streamlit as st
@@ -35,9 +33,18 @@ def main():
     img = torch.unsqueeze(img, dim=0)
 
     # read class_indict
-    json_path = './class_indices.json'
-    with open(json_path, "r") as f:
-        class_indict = json.load(f)
+    class_indict = {
+          "0": "\u5973\u8d1e",
+          "1": "\u6768\u6811",
+          "2": "\u67ab\u6811",
+          "3": "\u67f3\u6811",
+          "4": "\u6842\u82b1\u6811",
+          "5": "\u68a7\u6850\u6811",
+          "6": "\u6a1f\u6811\uff08\u9999\u6a1f\uff09",
+          "7": "\u6d77\u6850\u6811",
+          "8": "\u6d77\u68e0\u6811",
+          "9": "\u94f6\u674f\u6811"
+                    }
 
     # create model
     model = create_model(num_classes=10).to(device)
