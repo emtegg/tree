@@ -1,3 +1,4 @@
+import zipfile
 import torch
 import streamlit as st
 from torchvision import transforms
@@ -45,7 +46,9 @@ def main():
     # create model
     model = create_model(num_classes=10).to(device)
     # load model weights
-    model_weight_path = "./weights/model-9.pth"
+    with zipfile.ZipFile('./weights/model-9.zip', 'r') as zip_ref:
+        zip_ref.extractall('extracted')
+    model_weight_path = "./extracted/model-9.pth"
     model.load_state_dict(torch.load(model_weight_path, map_location=device))
     model.eval()
     with torch.no_grad():
