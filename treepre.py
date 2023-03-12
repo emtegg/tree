@@ -1,10 +1,6 @@
 import torch
-from PIL import Image
 import streamlit as st
 from torchvision import transforms
-import matplotlib.pyplot as plt
-plt.rcParams['font.sans-serif'] = ['SimHei']  # 设置中文字体为 SimHei
-plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
 
 from model import swin_tiny_patch4_window7_224 as create_model
 
@@ -26,7 +22,7 @@ def main():
 
     # load image
 
-    img = Image.open(img_path)
+    img = img_path
     # [N, C, H, W]
     img = data_transform(img)
     # expand batch dimension
@@ -58,9 +54,6 @@ def main():
         predict = torch.softmax(output, dim=0)
         predict_cla = torch.argmax(predict).numpy()
 
-    print_res = "class: {}   prob: {:.3}".format(class_indict[str(predict_cla)],
-                                                 predict[predict_cla].numpy())
-    plt.title(print_res)
     for i in range(len(predict)):
         if str(i) in class_indict:
             print("class: {:10}   prob: {:.3}".format(class_indict[str(i)],
@@ -70,7 +63,6 @@ def main():
     st.markdown("**请点击按钮开始预测**")
     predict = st.button("类别预测")
     if predict:
-        st.image(plt.show())
         st.title("图片中的树木类别是: {}".format(class_indict[str(predict_cla)]))
 
 
