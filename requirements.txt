@@ -1,0 +1,7 @@
+streamlit
+os
+json
+torch
+PIL
+torchvision
+matlotlib
